@@ -1,14 +1,39 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ClockClient"
              x:Class="ClockClient.MainPage">
-
-    <StackLayout>
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Fill" Spacing="10">
+            <Label Text="3.2.0" FontSize="16" TextColor="Black" VerticalTextAlignment="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Tapped="HandleTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    <StackLayout SizeChanged="MainPage_OnSizeChanged">
+        <StackLayout.GestureRecognizers>
+            <SwipeGestureRecognizer Direction="Up,Down" Swiped="SwipeGestureRecognizer_OnSwiped"></SwipeGestureRecognizer>
+        </StackLayout.GestureRecognizers>
         <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
+        <Label Text="00:00" x:Name="label"
+               HorizontalOptions="Center" VerticalTextAlignment="Start"
+               VerticalOptions="FillAndExpand" />
+
+        <Label Text="Informacja z nagłośnienia" />
+        <Label>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Maecenas dapibus, metus et vulputate sollicitudin, risus orci malesuada turpis, ac consectetur odio nulla vel sem.
+            Sed pellentesque neque velit, eget ultricies enim molestie a. Fusce sit amet consequat sapien, at congue arcu.
+            Aenean placerat erat nec odio vestibulum varius. Suspendisse pulvinar feugiat ipsum, sit amet eleifend mi suscipit at.
+            Nullam ex erat, lobortis quis pharetra sed, hendrerit tristique mi. Phasellus porttitor ex in urna volutpat sollicitudin non ac ante.
+            Vestibulum tellus enim, mollis non magna sit amet, faucibus hendrerit metus.
+        </Label>
+
+
     </StackLayout>
 
 </ContentPage>
