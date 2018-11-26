@@ -3,32 +3,30 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ClockClient"
-             x:Class="ClockClient.MainPage"
-             BindingContext="{Binding MainWindowModel, Source={StaticResource ViewModelLocator}}"
-             >
+             x:Class="ClockClient.MainPage">
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Fill" Spacing="10">
             <Label Text="3.2.0" FontSize="16" TextColor="Black" VerticalTextAlignment="Center">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer
-                        Tapped="HandleTapped" />
+                        Command="{Binding OpenSettingsCommand}"/>
                 </Label.GestureRecognizers>
             </Label>
         </StackLayout>
     </NavigationPage.TitleView>
     <StackLayout SizeChanged="MainPage_OnSizeChanged">
         <StackLayout.GestureRecognizers>
-            <SwipeGestureRecognizer Direction="Up,Down" Swiped="SwipeGestureRecognizer_OnSwiped"></SwipeGestureRecognizer>
+            <SwipeGestureRecognizer Direction="Up,Down" Swiped="SwipeGestureRecognizer_OnSwiped" />
         </StackLayout.GestureRecognizers>
         <!-- Place new controls here -->
         <Label Text="00:00" x:Name="label"
                HorizontalOptions="Center" VerticalTextAlignment="Start"
                VerticalOptions="FillAndExpand" />
 
+
+        <Button Text="Run command" Command="{Binding Path=OpenSettingsCommand}"></Button>
         <Label Text="Informacja z nagłośnienia" />
-        <Label Text="{Binding Text}">
-           
-        </Label>
+        <Label Text="{Binding Text}" />
 
 
     </StackLayout>

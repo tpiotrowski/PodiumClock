@@ -8,4 +8,10 @@
     <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Xamarin.Forms.Core">
+      <HintPath>C:\Users\tpiotrowski.BBPOLSKA\.nuget\packages\xamarin.forms\3.3.0.967583\lib\netstandard2.0\Xamarin.Forms.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

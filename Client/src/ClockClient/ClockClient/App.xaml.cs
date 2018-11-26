@@ -1,4 +1,5 @@
 ﻿using System;
+using Android.Content.Res;
 using ClockClient.VM;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -10,9 +11,15 @@ namespace ClockClient
     {
         public App()
         {
-            InitializeComponent();
+           
             
-            MainPage = new NavigationPage(new MainPage());
+            InitializeComponent();
+
+
+
+            MainPage = (Current.Resources["ViewModelLocator"] as ViewModelLocator).MainPage;
+
+
         }
 
         protected override void OnStart()
@@ -35,9 +42,22 @@ namespace ClockClient
 
     public class ViewModelLocator
     {
-        public MainPageViewModel MainWindowModel
+        protected INavigation navigation;
+
+        public ViewModelLocator()
         {
-            get { return new MainPageViewModel(); }
+            var mainPage = new MainPage();
+            
+            MainPage = new NavigationPage(mainPage);
+            navigation = MainPage.Navigation;
+
+            var context = new MainPageViewModel(navigation);
+
+            mainPage.BindingContext = context;
+
+            
         }
+
+        public NavigationPage MainPage { get; }
     }
 }
