@@ -17,7 +17,8 @@ namespace ClockClient
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false); 
-            NavigationPage.na 
+            
+       
         }
 
         private void HandleTapped(object sender, EventArgs e)

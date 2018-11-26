@@ -1,4 +1,5 @@
 ﻿using System;
+using ClockClient.VM;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,7 +11,7 @@ namespace ClockClient
         public App()
         {
             InitializeComponent();
-
+            
             MainPage = new NavigationPage(new MainPage());
         }
 
@@ -27,6 +28,16 @@ namespace ClockClient
         protected override void OnResume()
         {
             // Handle when your app resumes
+        }
+    }
+
+
+
+    public class ViewModelLocator
+    {
+        public MainPageViewModel MainWindowModel
+        {
+            get { return new MainPageViewModel(); }
         }
     }
 }

@@ -3,7 +3,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ClockClient"
-             x:Class="ClockClient.MainPage">
+             x:Class="ClockClient.MainPage"
+             BindingContext="{Binding MainWindowModel, Source={StaticResource ViewModelLocator}}"
+             >
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Fill" Spacing="10">
             <Label Text="3.2.0" FontSize="16" TextColor="Black" VerticalTextAlignment="Center">
@@ -24,13 +26,8 @@
                VerticalOptions="FillAndExpand" />
 
         <Label Text="Informacja z nagłośnienia" />
-        <Label>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Maecenas dapibus, metus et vulputate sollicitudin, risus orci malesuada turpis, ac consectetur odio nulla vel sem.
-            Sed pellentesque neque velit, eget ultricies enim molestie a. Fusce sit amet consequat sapien, at congue arcu.
-            Aenean placerat erat nec odio vestibulum varius. Suspendisse pulvinar feugiat ipsum, sit amet eleifend mi suscipit at.
-            Nullam ex erat, lobortis quis pharetra sed, hendrerit tristique mi. Phasellus porttitor ex in urna volutpat sollicitudin non ac ante.
-            Vestibulum tellus enim, mollis non magna sit amet, faucibus hendrerit metus.
+        <Label Text="{Binding Text}">
+           
         </Label>
 
 
