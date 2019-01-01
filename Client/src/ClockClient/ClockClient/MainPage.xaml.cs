@@ -11,7 +11,7 @@ namespace ClockClient
 {
     public partial class MainPage : ContentPage
     {
-        ScreenMetrics metrics = DeviceDisplay.ScreenMetrics;
+        //ScreenMetrics metrics = DeviceDisplay.Main;
 
         public MainPage()
         {

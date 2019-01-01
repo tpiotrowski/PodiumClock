@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using GalaSoft.MvvmLight.Views;
+using ItSoft.Command;
 using Xamarin.Forms;
 using PropertyChangingEventArgs = System.ComponentModel.PropertyChangingEventArgs;
 using PropertyChangingEventHandler = System.ComponentModel.PropertyChangingEventHandler;
@@ -35,15 +37,13 @@ namespace ClockClient.VM
 
             return true;
         }
-
-
         
     }
 
     public class MainPageViewModel  : BaseView
     {
         private readonly INavigation _navigation;
-        public ICommand OpenSettingsCommand { get;  }
+        public ICommand OpenSettingsCommand { get; set; }
 
 
         //ToDo: Add custom interface
@@ -53,10 +53,7 @@ namespace ClockClient.VM
             Text = "Text from view model";
 
 
-            OpenSettingsCommand = (ICommand) new NativeCommandFactory().CreateInstance(obj =>
-                {
-                    Text = "Command was executed";
-                }, o => true);
+            OpenSettingsCommand = (ICommand) new NativeCommandFactory().CreateInstance(obj => { Text = (string) obj; }, o => true);
 
         }
         
@@ -66,59 +63,19 @@ namespace ClockClient.VM
 
         public string Text
         {
-            set
-            {
-                _text = value;
-                Set(ref _text, value);
-            }
+            set => Set(ref _text, value);
             get => _text;
         }
 
 
     }
 
-    public interface ICommand
-    {
-        void Execute(object arg);
-        bool CanExecute(object arg);
-        event EventHandler CanExecuteChanged; 
-    } 
+    //public interface ICommand
+    //{
+    //    void Execute(object arg);
+    //    bool CanExecute(object arg);
+    //    event EventHandler CanExecuteChanged; 
+    //} 
 
-    public interface ICommandFactory
-    {
-        object CreateInstance(Action<object> action, Func<object, bool> predicate);
-    }
-
-    public class NativeCommand : ICommand
-    {
-        private readonly Action<object> _action;
-        private readonly Func<object, bool> _predicate;
-
-        public NativeCommand(Action<object> action, Func<object, bool> predicate)
-        {
-            _action = action;
-            _predicate = predicate;
-        }
-
-        public bool CanExecute(object parameter)
-        {
-            return _predicate(parameter);
-        }
-
-        public void Execute(object parameter)
-        {
-            _action(parameter);
-        }
-
-        public event EventHandler CanExecuteChanged;
-    }
-
-    public class NativeCommandFactory : ICommandFactory
-    {
-        public object CreateInstance(Action<object> action, Func<object, bool> predicate)
-        {
-            return new NativeCommand(action, predicate);
-        }
-    }
-    
+   
 }

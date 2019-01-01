@@ -6,10 +6,10 @@
              x:Class="ClockClient.MainPage">
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Fill" Spacing="10">
-            <Label Text="3.2.0" FontSize="16" TextColor="Black" VerticalTextAlignment="Center">
+            <Label Text="3.2.0" FontSize="16" TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="End">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer
-                        Command="{Binding OpenSettingsCommand}"/>
+                        Command="{Binding OpenSettingsCommand}" CommandParameter="Text from navigation panel"/>
                 </Label.GestureRecognizers>
             </Label>
         </StackLayout>
@@ -24,7 +24,7 @@
                VerticalOptions="FillAndExpand" />
 
 
-        <Button Text="Run command" Command="{Binding Path=OpenSettingsCommand}"></Button>
+        <Button Text="Run command" Command="{Binding Path=OpenSettingsCommand}" CommandParameter="From button"></Button>
         <Label Text="Informacja z nagłośnienia" />
         <Label Text="{Binding Text}" />
 
