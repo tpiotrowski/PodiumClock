@@ -1,6 +1,6 @@
 ﻿namespace ItSoft.ClientService
 {
-    public interface IClientService
+    public interface IPodiumClockClient
     {
     }
 }
