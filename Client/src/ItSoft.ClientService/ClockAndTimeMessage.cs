@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ItSoft.ClientService
 {
-    public class ClockAndTimeFrame
+    public class ClockAndTimeMessage
     {
         public static readonly byte[] Type = {Convert.ToByte('T'), Convert.ToByte('1')};
         protected byte TextStartBytes { get; set; } = 0x2;
@@ -25,11 +25,11 @@ namespace ItSoft.ClientService
 
         public string Time => $"{Sign} {Minutes}{Separator}{Seconds}";
 
-        public static ClockAndTimeFrame Decode(PodiumClockFrame baseFrame)
+        public static ClockAndTimeMessage Decode(BaseMessage baseFrame)
         {
             if (baseFrame == null) throw new ArgumentNullException(nameof(baseFrame));
             if (!baseFrame.Type.SequenceEqual(Type)) throw new Exception($"Wrong type of Frame {Type}");
-            var clockAndTimeFrame = new ClockAndTimeFrame();
+            var clockAndTimeFrame = new ClockAndTimeMessage();
 
             var body = baseFrame.Body;
 
@@ -59,26 +59,26 @@ namespace ItSoft.ClientService
             return clockAndTimeFrame;
         }
 
-        private static List<byte[]> SplitBySeparator(byte[] body, ClockAndTimeFrame clockAndTimeFrame)
+        private static List<byte[]> SplitBySeparator(byte[] body, ClockAndTimeMessage clockAndTimeMessage)
         {
             List<byte[]> bytes = new List<byte[]>();
             List<byte> valuesBytes = new List<byte>();
             var textStarted = false;
             foreach (var byteValue in body)
             {
-                if (byteValue == Encoding.UTF8.GetBytes(new[] {clockAndTimeFrame.Separator}).First() && !textStarted)
+                if (byteValue == Encoding.UTF8.GetBytes(new[] {clockAndTimeMessage.Separator}).First() && !textStarted)
                 {
                     bytes.Add(valuesBytes.ToArray());
                     valuesBytes.Clear();
                 }
                 else
                 {
-                    if (byteValue == clockAndTimeFrame.TextStartBytes)
+                    if (byteValue == clockAndTimeMessage.TextStartBytes)
                     {
                         textStarted = true;
                     }
 
-                    if (byteValue == clockAndTimeFrame.TextEndBytes)
+                    if (byteValue == clockAndTimeMessage.TextEndBytes)
                     {
                         textStarted = false;
                     }

@@ -2,8 +2,8 @@
 
 namespace ItSoft.ClientService
 {
-    public class ClockDataEventArgs : EventArgs
+    public class ClockDataEventArgs<T> : EventArgs
     {
-        public byte[] Bytes { get; set; }
+        public T Message { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace Tests
         }
 
 
-        static (PodiumClockFrame Source, ClockAndTimeFrame Result) PrepareFrameClockTextPF(string mm, string ss,
+        static (BaseMessage Source, ClockAndTimeMessage Result) PrepareFrameClockTextPF(string mm, string ss,
             string text, bool indicator,
             char signMarker)
         {
@@ -27,11 +27,11 @@ namespace Tests
 
             PrepareFrameBody(mm, ss, text, indicator, signMarker, body);
 
-            return (new PodiumClockFrame()
+            return (new BaseMessage()
             {
                 Body = body.ToArray(),
                 Type = type.ToArray()
-            }, new ClockAndTimeFrame()
+            }, new ClockAndTimeMessage()
             {
                 Minutes = mm,
                 Seconds = ss,
@@ -96,7 +96,7 @@ namespace Tests
         [Test(), TestCaseSource(nameof(FrameSource))]
         public void PodiumClockFrameDecodeTest(byte[] frame)
         {
-            var podiumClockFrame = PodiumClockFrame.Decode(frame);
+            var podiumClockFrame = BaseMessage.Decode(frame);
 
 
             Assert.Multiple(() =>
@@ -122,7 +122,7 @@ namespace Tests
             var testData = PrepareFrameClockTextPF("13", "23", "TestText", false, ' ');
 
            
-            var clockAndTimeFrame = ClockAndTimeFrame.Decode(testData.Source);
+            var clockAndTimeFrame = ClockAndTimeMessage.Decode(testData.Source);
 
             Assert.Multiple(() =>
             {
@@ -142,7 +142,7 @@ namespace Tests
             var testData = PrepareFrameClockTextPF("13", "23", "Test:Text", false, ' ');
 
 
-            var clockAndTimeFrame = ClockAndTimeFrame.Decode(testData.Source);
+            var clockAndTimeFrame = ClockAndTimeMessage.Decode(testData.Source);
 
             Assert.Multiple(() =>
             {
@@ -162,7 +162,7 @@ namespace Tests
             var testData = PrepareFrameClockTextPF("13", "23", "Test:Text", true, '-');
 
 
-            var clockAndTimeFrame = ClockAndTimeFrame.Decode(testData.Source);
+            var clockAndTimeFrame = ClockAndTimeMessage.Decode(testData.Source);
 
             Assert.Multiple(() =>
             {
@@ -182,7 +182,7 @@ namespace Tests
             var testData = PrepareFrameClockTextPF("13", "23", "Test:& T ext", true, '-');
 
 
-            var clockAndTimeFrame = ClockAndTimeFrame.Decode(testData.Source);
+            var clockAndTimeFrame = ClockAndTimeMessage.Decode(testData.Source);
 
             Assert.Multiple(() =>
             {

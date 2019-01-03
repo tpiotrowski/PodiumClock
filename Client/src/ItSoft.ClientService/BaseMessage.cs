@@ -6,7 +6,7 @@ using System.Net.Sockets;
 
 namespace ItSoft.ClientService
 {
-    public class PodiumClockFrame
+    public class BaseMessage
     {
         protected byte[] FrameStartBytes { get; set; } = {0x11};
         protected byte[] FrameEndBytes { get; set; } = {0x13};
@@ -16,9 +16,9 @@ namespace ItSoft.ClientService
         public byte[] Type { get; set; }
         public byte[] Body { get; set; }
 
-        public static PodiumClockFrame Decode(byte[] frame)
+        public static BaseMessage Decode(byte[] frame)
         {
-            var podiumClockFrame = new PodiumClockFrame();
+            var podiumClockFrame = new BaseMessage();
 
             var startFrameExists = frame.Take(podiumClockFrame.FrameStartBytes.Length)
                 .SequenceEqual(podiumClockFrame.FrameStartBytes);
