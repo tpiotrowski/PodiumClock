@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace Tests
 {
-    [TestFixture]
+    //[TestFixture]
     public class PodiumClockFrameTests
     {
         [SetUp]
@@ -15,7 +15,8 @@ namespace Tests
         }
 
 
-        static PodiumClockFrame PrepareFrameClockTextPF(string mm, string ss, string text, bool indicator,
+        static (PodiumClockFrame Source, ClockAndTimeFrame Result) PrepareFrameClockTextPF(string mm, string ss,
+            string text, bool indicator,
             char signMarker)
         {
             List<byte> type = new List<byte>();
@@ -26,11 +27,18 @@ namespace Tests
 
             PrepareFrameBody(mm, ss, text, indicator, signMarker, body);
 
-            return new PodiumClockFrame()
+            return (new PodiumClockFrame()
             {
                 Body = body.ToArray(),
                 Type = type.ToArray()
-            };
+            }, new ClockAndTimeFrame()
+            {
+                Minutes = mm,
+                Seconds = ss,
+                Text = text,
+                IndicatorEnabled = indicator,
+                Sign = signMarker,
+            });
         }
 
         static byte[] PrepareFrameClockText(string mm, string ss, string text, bool indicator, char signMarker)
@@ -62,6 +70,8 @@ namespace Tests
 
             bytes.Add(indicator ? (byte) 1 : (byte) 0);
 
+            bytes.Add(Convert.ToByte(':'));
+
             bytes.Add(0x02);
 
             if (!string.IsNullOrEmpty(text))
@@ -82,7 +92,6 @@ namespace Tests
         {
             new object[] {PrepareFrameClockText("13", "23", "TestText", false, ' ')},
         };
-
 
         [Test(), TestCaseSource(nameof(FrameSource))]
         public void PodiumClockFrameDecodeTest(byte[] frame)
@@ -107,37 +116,49 @@ namespace Tests
         }
 
 
-        static object[] FrameSourcePF =
+        [Test]
+        public void Test()
         {
-            new object[]
-            {
-                PrepareFrameClockTextPF("13", "23", "TestText", false, ' '), new ClockAndTimeFrame()
-                {
-                    Minutes = "13",
-                    Seconds = "23",
-                    Text = "TestText",
-                    IndicatorEnabled = false,
-                    Sign = ' ',
-                    
+            Assert.Fail();
+        }
 
-                }
-            },
-        };
-
-        [Test, TestCaseSource(nameof(FrameSourcePF))]
-        public void PodiumClockTimeAndTextFrameDecodeTest(PodiumClockFrame podiumClockFrame, ClockAndTimeFrame result)
+        [Test()]
+        public void PodiumClockTimeAndTextFrameDecodeTest()
         {
-            var clockAndTimeFrame = ClockAndTimeFrame.Decode(podiumClockFrame);
+            var testData = PrepareFrameClockTextPF("13", "23", "TestText", false, ' ');
+
+           
+            var clockAndTimeFrame = ClockAndTimeFrame.Decode(testData.Source);
 
             Assert.Multiple(() =>
             {
                 Assert.That(clockAndTimeFrame, Is.Not.Null);
 
-                Assert.That(clockAndTimeFrame.Minutes, Is.EqualTo(result.Minutes));
-                Assert.That(clockAndTimeFrame.Seconds, Is.EqualTo(result.Seconds));
-                Assert.That(clockAndTimeFrame.Text, Is.EqualTo(result.Text));
-                Assert.That(clockAndTimeFrame.IndicatorEnabled, Is.EqualTo(result.IndicatorEnabled));
-                Assert.That(clockAndTimeFrame.Sign, Is.EqualTo(result.Sign));
+                Assert.That(clockAndTimeFrame.Minutes, Is.EqualTo(testData.Result.Minutes),"Check minutes");
+                Assert.That(clockAndTimeFrame.Seconds, Is.EqualTo(testData.Result.Seconds), "Check seconds");
+                Assert.That(clockAndTimeFrame.Text, Is.EqualTo(testData.Result.Text),"Check text");
+                Assert.That(clockAndTimeFrame.IndicatorEnabled, Is.EqualTo(testData.Result.IndicatorEnabled), "Check indicator");
+                Assert.That(clockAndTimeFrame.Sign, Is.EqualTo(testData.Result.Sign), "Check sign");
+            });
+        }
+
+        [Test()]
+        public void PodiumClockTimeAndTextFrameDecodeTest2()
+        {
+            var testData = PrepareFrameClockTextPF("13", "23", "Test:Text", false, ' ');
+
+
+            var clockAndTimeFrame = ClockAndTimeFrame.Decode(testData.Source);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(clockAndTimeFrame, Is.Not.Null);
+
+                Assert.That(clockAndTimeFrame.Minutes, Is.EqualTo(testData.Result.Minutes), "Check minutes");
+                Assert.That(clockAndTimeFrame.Seconds, Is.EqualTo(testData.Result.Seconds), "Check seconds");
+                Assert.That(clockAndTimeFrame.Text, Is.EqualTo(testData.Result.Text), "Check text");
+                Assert.That(clockAndTimeFrame.IndicatorEnabled, Is.EqualTo(testData.Result.IndicatorEnabled), "Check indicator");
+                Assert.That(clockAndTimeFrame.Sign, Is.EqualTo(testData.Result.Sign), "Check sign");
             });
         }
     }
