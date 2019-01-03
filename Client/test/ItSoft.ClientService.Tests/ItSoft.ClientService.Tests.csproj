@@ -23,4 +23,8 @@
     <ProjectReference Include="..\..\src\ItSoft.ClientService\ItSoft.ClientService.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="IntegrationTests\" />
+  </ItemGroup>
+
 </Project>
