@@ -18,19 +18,14 @@ namespace ItSoft.ClientService
 
         private Socket _socket = null;
 
-        // private IPHostEntry _ipHostInfo;
-        //private IPAddress _address;
-        //private IPEndPoint _endPoint;
 
-        public int ReadPeriod { get; set; } = 500;
+        public int ReadPeriod { get; set; } = 100;
         public int WatchDogPeriod { get; set; } = 10000;
 
         public SocketClockMessageClient(string ipAddress, int port)
         {
             _ipAddress = ipAddress;
             _port = port;
-            /*_ipHostInfo = Dns.GetHostEntry(ipAddress);
-            _address = _ipHostInfo.AddressList.First();*/
         }
 
         public void StartClient()

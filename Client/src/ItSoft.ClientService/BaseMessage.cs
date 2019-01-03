@@ -11,7 +11,6 @@ namespace ItSoft.ClientService
         protected byte[] FrameStartBytes { get; set; } = {0x11};
         protected byte[] FrameEndBytes { get; set; } = {0x13};
         protected byte FrameTypeLength { get; set; } = 2;
-        protected byte FrameTypePosition { get; set; } = 0;
 
         public byte[] Type { get; set; }
         public byte[] Body { get; set; }
