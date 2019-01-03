@@ -57,8 +57,6 @@ namespace ItSoft.ClientService
             }
         }
 
-       
-
 
         private void Connect()
         {
@@ -68,7 +66,7 @@ namespace ItSoft.ClientService
             {
                 return;
             }
-            
+
             var ipEndPoint = new IPEndPoint(IPAddress.Parse(_ipAddress), _port);
             _socket = new Socket(ipEndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             _socket.BeginConnect(ipEndPoint, res =>
@@ -77,7 +75,7 @@ namespace ItSoft.ClientService
 
                 if (SocketConnected(socket))
                 {
-                    ClientConnected?.Invoke(this,EventArgs.Empty);
+                    ClientConnected?.Invoke(this, EventArgs.Empty);
                     _watchDog?.Dispose();
                     _watchDog = null;
 
@@ -98,7 +96,7 @@ namespace ItSoft.ClientService
 
         private void RunConnectionWatchDog()
         {
-            ClientDisconnected?.Invoke(this,EventArgs.Empty);
+            ClientDisconnected?.Invoke(this, EventArgs.Empty);
 
             _timer?.Dispose();
             _timer = null;

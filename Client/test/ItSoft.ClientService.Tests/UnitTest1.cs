@@ -15,7 +15,7 @@ namespace Tests
         }
 
 
-        static (BaseMessage Source, ClockAndTimeMessage Result) PrepareFrameClockTextPF(string mm, string ss,
+        static (BaseMessage Source, ClockAndTextMessage Result) PrepareFrameClockTextPF(string mm, string ss,
             string text, bool indicator,
             char signMarker)
         {
@@ -31,7 +31,7 @@ namespace Tests
             {
                 Body = body.ToArray(),
                 Type = type.ToArray()
-            }, new ClockAndTimeMessage()
+            }, new ClockAndTextMessage()
             {
                 Minutes = mm,
                 Seconds = ss,
@@ -122,7 +122,7 @@ namespace Tests
             var testData = PrepareFrameClockTextPF("13", "23", "TestText", false, ' ');
 
            
-            var clockAndTimeFrame = ClockAndTimeMessage.Decode(testData.Source);
+            var clockAndTimeFrame = ClockAndTimeMessageDecoder.Decode(testData.Source);
 
             Assert.Multiple(() =>
             {
@@ -142,7 +142,7 @@ namespace Tests
             var testData = PrepareFrameClockTextPF("13", "23", "Test:Text", false, ' ');
 
 
-            var clockAndTimeFrame = ClockAndTimeMessage.Decode(testData.Source);
+            var clockAndTimeFrame = ClockAndTimeMessageDecoder.Decode(testData.Source);
 
             Assert.Multiple(() =>
             {
@@ -162,7 +162,7 @@ namespace Tests
             var testData = PrepareFrameClockTextPF("13", "23", "Test:Text", true, '-');
 
 
-            var clockAndTimeFrame = ClockAndTimeMessage.Decode(testData.Source);
+            var clockAndTimeFrame = ClockAndTimeMessageDecoder.Decode(testData.Source);
 
             Assert.Multiple(() =>
             {
@@ -182,7 +182,7 @@ namespace Tests
             var testData = PrepareFrameClockTextPF("13", "23", "Test:& T ext", true, '-');
 
 
-            var clockAndTimeFrame = ClockAndTimeMessage.Decode(testData.Source);
+            var clockAndTimeFrame = ClockAndTimeMessageDecoder.Decode(testData.Source);
 
             Assert.Multiple(() =>
             {

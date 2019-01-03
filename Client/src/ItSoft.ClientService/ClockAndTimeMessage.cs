@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ItSoft.ClientService;
 
 namespace ItSoft.ClientService
 {
-    public class ClockAndTimeMessage
+    public class ClockAndTextMessage
     {
-        public static readonly byte[] Type = {Convert.ToByte('T'), Convert.ToByte('1')};
-        protected byte TextStartBytes { get; set; } = 0x2;
-        protected byte TextEndBytes { get; set; } = 0x3;
-
-        protected char Separator { get; set; } = ':';
-
         public bool IndicatorEnabled { get; set; }
 
         public char Sign { get; set; }
@@ -23,25 +18,38 @@ namespace ItSoft.ClientService
 
         public string Text { get; set; }
 
-        public string Time => $"{Sign} {Minutes}{Separator}{Seconds}";
+        public string Time => $"{Sign} {Minutes}:{Seconds}";
 
-        public static ClockAndTimeMessage Decode(BaseMessage baseFrame)
+    }
+
+
+    public class ClockAndTimeMessageDecoder
+    {
+        public static readonly byte[] Type = {Convert.ToByte('T'), Convert.ToByte('1')};
+        protected byte TextStartBytes { get; set; } = 0x2;
+        protected byte TextEndBytes { get; set; } = 0x3;      
+        protected char Separator { get; set; } = ':';
+        
+        public static ClockAndTextMessage Decode(BaseMessage baseFrame)
         {
             if (baseFrame == null) throw new ArgumentNullException(nameof(baseFrame));
             if (!baseFrame.Type.SequenceEqual(Type)) throw new Exception($"Wrong type of Frame {Type}");
-            var clockAndTimeFrame = new ClockAndTimeMessage();
+            var clockAndTimeFrame = new ClockAndTimeMessageDecoder();
 
             var body = baseFrame.Body;
 
 
             var splitBySeparator = SplitBySeparator(body, clockAndTimeFrame);
 
+
+
+            ClockAndTextMessage msg = new ClockAndTextMessage();
             if (splitBySeparator.Count >= 4)
             {
-                clockAndTimeFrame.Sign = Encoding.UTF8.GetChars(splitBySeparator[0]).First();
-                clockAndTimeFrame.Minutes = Encoding.UTF8.GetString(splitBySeparator[0].Skip(1).ToArray());
-                clockAndTimeFrame.Seconds = Encoding.UTF8.GetString(splitBySeparator[1]);
-                clockAndTimeFrame.IndicatorEnabled = splitBySeparator[2].First() != (byte) 0;
+                msg.Sign = Encoding.UTF8.GetChars(splitBySeparator[0]).First();
+                msg.Minutes = Encoding.UTF8.GetString(splitBySeparator[0].Skip(1).ToArray());
+                msg.Seconds = Encoding.UTF8.GetString(splitBySeparator[1]);
+                msg.IndicatorEnabled = splitBySeparator[2].First() != (byte) 0;
 
 
                 var textStart = splitBySeparator[3].First() == clockAndTimeFrame.TextStartBytes;
@@ -52,14 +60,14 @@ namespace ItSoft.ClientService
                 {
                     var textBytes = splitBySeparator[3].Skip(1).Take(splitBySeparator[3].Length - 2).ToArray();
 
-                    clockAndTimeFrame.Text = Encoding.UTF8.GetString(textBytes);
+                    msg.Text = Encoding.UTF8.GetString(textBytes);
                 }
             }
 
-            return clockAndTimeFrame;
+            return msg;
         }
 
-        private static List<byte[]> SplitBySeparator(byte[] body, ClockAndTimeMessage clockAndTimeMessage)
+        private static List<byte[]> SplitBySeparator(byte[] body, ClockAndTimeMessageDecoder clockAndTimeMessage)
         {
             List<byte[]> bytes = new List<byte[]>();
             List<byte> valuesBytes = new List<byte>();

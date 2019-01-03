@@ -15,7 +15,6 @@ namespace ItSoft.ClientService.TestApp
 
             while (true)
             {
-                
             }
         }
 
@@ -27,7 +26,6 @@ namespace ItSoft.ClientService.TestApp
             var s = utf8.GetString(e.Message);
 
             Console.WriteLine(s);
-            
         }
     }
 }
