@@ -116,12 +116,6 @@ namespace Tests
         }
 
 
-        [Test]
-        public void Test()
-        {
-            Assert.Fail();
-        }
-
         [Test()]
         public void PodiumClockTimeAndTextFrameDecodeTest()
         {
@@ -146,6 +140,46 @@ namespace Tests
         public void PodiumClockTimeAndTextFrameDecodeTest2()
         {
             var testData = PrepareFrameClockTextPF("13", "23", "Test:Text", false, ' ');
+
+
+            var clockAndTimeFrame = ClockAndTimeFrame.Decode(testData.Source);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(clockAndTimeFrame, Is.Not.Null);
+
+                Assert.That(clockAndTimeFrame.Minutes, Is.EqualTo(testData.Result.Minutes), "Check minutes");
+                Assert.That(clockAndTimeFrame.Seconds, Is.EqualTo(testData.Result.Seconds), "Check seconds");
+                Assert.That(clockAndTimeFrame.Text, Is.EqualTo(testData.Result.Text), "Check text");
+                Assert.That(clockAndTimeFrame.IndicatorEnabled, Is.EqualTo(testData.Result.IndicatorEnabled), "Check indicator");
+                Assert.That(clockAndTimeFrame.Sign, Is.EqualTo(testData.Result.Sign), "Check sign");
+            });
+        }
+
+        [Test()]
+        public void PodiumClockTimeAndTextFrameDecodeTest3()
+        {
+            var testData = PrepareFrameClockTextPF("13", "23", "Test:Text", true, '-');
+
+
+            var clockAndTimeFrame = ClockAndTimeFrame.Decode(testData.Source);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(clockAndTimeFrame, Is.Not.Null);
+
+                Assert.That(clockAndTimeFrame.Minutes, Is.EqualTo(testData.Result.Minutes), "Check minutes");
+                Assert.That(clockAndTimeFrame.Seconds, Is.EqualTo(testData.Result.Seconds), "Check seconds");
+                Assert.That(clockAndTimeFrame.Text, Is.EqualTo(testData.Result.Text), "Check text");
+                Assert.That(clockAndTimeFrame.IndicatorEnabled, Is.EqualTo(testData.Result.IndicatorEnabled), "Check indicator");
+                Assert.That(clockAndTimeFrame.Sign, Is.EqualTo(testData.Result.Sign), "Check sign");
+            });
+        }
+
+        [Test()]
+        public void PodiumClockTimeAndTextFrameDecodeTest4()
+        {
+            var testData = PrepareFrameClockTextPF("13", "23", "Test:& T ext", true, '-');
 
 
             var clockAndTimeFrame = ClockAndTimeFrame.Decode(testData.Source);
