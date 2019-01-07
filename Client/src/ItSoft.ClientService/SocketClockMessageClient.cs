@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -6,6 +8,64 @@ using System.Threading;
 
 namespace ItSoft.ClientService
 {
+    public class SocketDataDecoder
+    {
+        private readonly IClockMessageClient<byte[]> _messageClient;
+
+        public event EventHandler<ClockDataEventArgs<byte[]>> FrameReceived;
+        private readonly List<byte> _bufferBytes = new List<byte>();
+        private Timer _processDataTimer = null;
+        public int ProcessingPeriod { get; set; } = 250;
+        private readonly object _lockObject = new object();
+
+        public SocketDataDecoder(IClockMessageClient<byte[]> messageClient)
+        {
+            _messageClient = messageClient;
+            _messageClient.DataReceived += _messageClient_DataReceived;
+            _messageClient.ClientConnected += _messageClient_ClientConnected;
+            _messageClient.ClientDisconnected += _messageClient_ClientDisconnected;
+        }
+
+        private void _messageClient_ClientDisconnected(object sender, EventArgs e)
+        {
+            _processDataTimer.Dispose();
+            _processDataTimer = null;
+        }
+
+        private void _messageClient_ClientConnected(object sender, EventArgs e)
+        {
+            _processDataTimer = new Timer(state =>
+            {
+                if (state is List<byte> bag)
+                    ProcessData(bag);
+
+                _processDataTimer?.Change(ProcessingPeriod, Timeout.Infinite);
+            }, _bufferBytes, 0, Timeout.Infinite);
+        }
+
+        private void ProcessData(List<byte> buffer)
+        {
+            lock (_lockObject)
+            {
+                var frameStartBytes = BaseMessage.FrameStartBytes;
+                var frameEndBytes = BaseMessage.FrameEndBytes;
+                
+                
+                for (var i = 0; i < buffer.Count; i++)
+                {
+                   
+                }
+
+            }
+        }
+
+        private void _messageClient_DataReceived(object sender, ClockDataEventArgs<byte[]> e)
+        {
+            lock (_lockObject) _bufferBytes.AddRange(e.Message);
+        }
+    }
+
+
     public class SocketClockMessageClient : IClockMessageClient<byte[]>
     {
         private readonly string _ipAddress;
@@ -20,7 +80,8 @@ namespace ItSoft.ClientService
 
 
         public int ReadPeriod { get; set; } = 100;
-        public int WatchDogPeriod { get; set; } = 10000;
+        public int WatchDogPeriod { get; set; } = 10_000;
+        public int BufferSize { get; set; } = 64_000;
 
         public SocketClockMessageClient(string ipAddress, int port)
         {
@@ -114,7 +175,7 @@ namespace ItSoft.ClientService
                     return;
                 }
 
-                var buffer = new byte[1024];
+                var buffer = new byte[BufferSize];
 
                 try
                 {

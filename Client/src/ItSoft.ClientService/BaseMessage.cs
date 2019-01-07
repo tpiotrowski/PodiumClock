@@ -8,8 +8,8 @@ namespace ItSoft.ClientService
 {
     public class BaseMessage
     {
-        protected byte[] FrameStartBytes { get; set; } = {0x11};
-        protected byte[] FrameEndBytes { get; set; } = {0x13};
+        public static byte[] FrameStartBytes { get; set; } = {0x11};
+        public static byte[] FrameEndBytes { get; set; } = {0x13};
         protected byte FrameTypeLength { get; set; } = 2;
 
         public byte[] Type { get; set; }
@@ -19,16 +19,16 @@ namespace ItSoft.ClientService
         {
             var podiumClockFrame = new BaseMessage();
 
-            var startFrameExists = frame.Take(podiumClockFrame.FrameStartBytes.Length)
-                .SequenceEqual(podiumClockFrame.FrameStartBytes);
+            var startFrameExists = frame.Take(FrameStartBytes.Length)
+                .SequenceEqual(FrameStartBytes);
 
-            var frameEndExists = frame.Reverse().Take(podiumClockFrame.FrameEndBytes.Length).Reverse()
-                .SequenceEqual(podiumClockFrame.FrameEndBytes);
+            var frameEndExists = frame.Reverse().Take(FrameEndBytes.Length).Reverse()
+                .SequenceEqual(FrameEndBytes);
 
 
             if (startFrameExists && frameEndExists)
             {
-                var tmpFrame = frame.Except(podiumClockFrame.FrameStartBytes).Except(podiumClockFrame.FrameEndBytes);
+                var tmpFrame = frame.Except(FrameStartBytes).Except(FrameEndBytes);
 
 
                 podiumClockFrame.Type = tmpFrame.Take(podiumClockFrame.FrameTypeLength).ToArray();
