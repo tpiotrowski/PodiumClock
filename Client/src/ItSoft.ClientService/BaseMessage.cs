@@ -28,11 +28,12 @@ namespace ItSoft.ClientService
 
             if (startFrameExists && frameEndExists)
             {
-                var tmpFrame = frame.Except(FrameStartBytes).Except(FrameEndBytes);
+                var tmpFrame = frame.Skip(FrameStartBytes.Length)
+                    .Take(frame.Length - FrameStartBytes.Length - FrameEndBytes.Length);
 
 
                 podiumClockFrame.Type = tmpFrame.Take(podiumClockFrame.FrameTypeLength).ToArray();
-                podiumClockFrame.Body = frame.Skip(podiumClockFrame.FrameTypeLength).ToArray();
+                podiumClockFrame.Body = tmpFrame.Skip(podiumClockFrame.FrameTypeLength).ToArray();
 
 
                 return podiumClockFrame;

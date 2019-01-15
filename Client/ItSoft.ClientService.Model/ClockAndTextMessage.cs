@@ -14,5 +14,9 @@
 
         public string Time => $"{Sign} {Minutes}:{Seconds}";
 
+        public override string ToString()
+        {
+            return $"{nameof(IndicatorEnabled)}: {IndicatorEnabled}, {nameof(Sign)}: {Sign}, {nameof(Minutes)}: {Minutes}, {nameof(Seconds)}: {Seconds}, {nameof(Text)}: {Text}, {nameof(Time)}: {Time}";
+        }
     }
 }

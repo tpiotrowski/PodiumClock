@@ -28,7 +28,7 @@ namespace ItSoft.ClientService
 
         private void _messageClient_ClientDisconnected(object sender, EventArgs e)
         {
-            _processDataTimer.Dispose();
+            _processDataTimer?.Dispose();
             _processDataTimer = null;
         }
 
@@ -49,14 +49,67 @@ namespace ItSoft.ClientService
             {
                 var frameStartBytes = BaseMessage.FrameStartBytes;
                 var frameEndBytes = BaseMessage.FrameEndBytes;
-                
-                
+
+                var frameStartIndex = -1;
+                var frameEndIndex = -1;
+                var lastFrameEnd = -1;
                 for (var i = 0; i < buffer.Count; i++)
                 {
-                   
+                    var startSequence = CheckStart(buffer, frameStartBytes, i);
+                    if (startSequence > -1)
+                    {
+                        frameStartIndex = startSequence;
+                    }
+
+                    var sequence = CheckEnd(buffer, frameEndBytes, i);
+                    if (sequence > -1)
+                    {
+                        frameEndIndex = sequence;
+                    }
+
+                    if (frameStartIndex > -1 && frameEndIndex > -1)
+                    {
+                        var length = frameEndIndex - frameStartIndex;
+                        var range = buffer.GetRange(frameStartIndex, length).ToArray();
+                        FrameReceived?.Invoke(this, new ClockDataEventArgs<byte[]>() {Message = range});
+                        lastFrameEnd = frameEndIndex;
+                        frameStartIndex = frameEndIndex = -1;
+                    }
                 }
 
+                if(lastFrameEnd > -1)
+                    buffer.RemoveRange(0, lastFrameEnd);
             }
+        }
+
+        private static int CheckStart(List<byte> buffer, byte[] frameStartBytes, int i)
+        {
+            
+                var isFrameStart = true;
+                var index = 0;
+                for (; index < frameStartBytes.Length; index++)
+                {
+                    var frameStartByte = frameStartBytes[index];
+                    isFrameStart = isFrameStart && frameStartByte == buffer[i];
+                    i++;
+                }
+
+                return isFrameStart ? i -1  : -1;
+        }
+
+        private static int CheckEnd(List<byte> buffer, byte[] frameStartBytes, int i)
+        {
+
+            var isFrameStart = true;
+            var index = 0;
+            for (; index < frameStartBytes.Length; index++)
+            {
+                var frameStartByte = frameStartBytes[index];
+                isFrameStart = isFrameStart && frameStartByte == buffer[i];
+                i++;
+            }
+
+            return isFrameStart ? i : -1;
         }
 
         private void _messageClient_DataReceived(object sender, ClockDataEventArgs<byte[]> e)
@@ -79,7 +132,7 @@ namespace ItSoft.ClientService
         private Socket _socket = null;
 
 
-        public int ReadPeriod { get; set; } = 100;
+        public int ReadPeriod { get; set; } = 250;
         public int WatchDogPeriod { get; set; } = 10_000;
         public int BufferSize { get; set; } = 64_000;
 

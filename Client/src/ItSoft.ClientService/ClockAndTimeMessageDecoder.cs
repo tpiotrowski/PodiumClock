@@ -32,7 +32,7 @@ namespace ItSoft.ClientService
                 msg.Sign = Encoding.UTF8.GetChars(splitBySeparator[0]).First();
                 msg.Minutes = Encoding.UTF8.GetString(splitBySeparator[0].Skip(1).ToArray());
                 msg.Seconds = Encoding.UTF8.GetString(splitBySeparator[1]);
-                msg.IndicatorEnabled = splitBySeparator[2].First() != (byte) 0;
+                msg.IndicatorEnabled = splitBySeparator[2].First() != (byte) 0x30;
 
 
                 var textStart = splitBySeparator[3].First() == clockAndTimeFrame.TextStartBytes;
