@@ -15,7 +15,7 @@ namespace ItSoft.ClientService
         public event EventHandler<ClockDataEventArgs<byte[]>> FrameReceived;
         private readonly List<byte> _bufferBytes = new List<byte>();
         private Timer _processDataTimer = null;
-        public int ProcessingPeriod { get; set; } = 250;
+        public int ProcessingPeriod { get; set; } = 50;
         private readonly object _lockObject = new object();
 
         public SocketDataDecoder(IClockMessageClient<byte[]> messageClient)
@@ -132,7 +132,7 @@ namespace ItSoft.ClientService
         private Socket _socket = null;
 
 
-        public int ReadPeriod { get; set; } = 250;
+        public int ReadPeriod { get; set; } = 50;
         public int WatchDogPeriod { get; set; } = 10_000;
         public int BufferSize { get; set; } = 64_000;
 
