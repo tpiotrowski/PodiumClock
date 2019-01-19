@@ -11,13 +11,14 @@ namespace ClockClient
 {
     public partial class MainPage : ContentPage
     {
-        ScreenMetrics metrics = DeviceDisplay.ScreenMetrics;
+        //ScreenMetrics metrics = DeviceDisplay.Main;
 
         public MainPage()
         {
             InitializeComponent();
-            NavigationPage.SetHasNavigationBar(this, false); 
-            NavigationPage.na 
+            //NavigationPage.SetHasNavigationBar(this, false); 
+            
+       
         }
 
         private void HandleTapped(object sender, EventArgs e)

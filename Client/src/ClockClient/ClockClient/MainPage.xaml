@@ -6,34 +6,40 @@
              x:Class="ClockClient.MainPage">
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Fill" Spacing="10">
-            <Label Text="3.2.0" FontSize="16" TextColor="Black" VerticalTextAlignment="Center">
+            <Label Text="3.2.0" FontSize="16" TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="End">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer
-                        Tapped="HandleTapped" />
+                        Command="{Binding OpenSettingsCommand}" CommandParameter="Text from navigation panel"/>
                 </Label.GestureRecognizers>
             </Label>
         </StackLayout>
     </NavigationPage.TitleView>
-    <StackLayout SizeChanged="MainPage_OnSizeChanged">
-        <StackLayout.GestureRecognizers>
-            <SwipeGestureRecognizer Direction="Up,Down" Swiped="SwipeGestureRecognizer_OnSwiped"></SwipeGestureRecognizer>
-        </StackLayout.GestureRecognizers>
-        <!-- Place new controls here -->
-        <Label Text="00:00" x:Name="label"
-               HorizontalOptions="Center" VerticalTextAlignment="Start"
-               VerticalOptions="FillAndExpand" />
 
-        <Label Text="Informacja z nagłośnienia" />
-        <Label>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Maecenas dapibus, metus et vulputate sollicitudin, risus orci malesuada turpis, ac consectetur odio nulla vel sem.
-            Sed pellentesque neque velit, eget ultricies enim molestie a. Fusce sit amet consequat sapien, at congue arcu.
-            Aenean placerat erat nec odio vestibulum varius. Suspendisse pulvinar feugiat ipsum, sit amet eleifend mi suscipit at.
-            Nullam ex erat, lobortis quis pharetra sed, hendrerit tristique mi. Phasellus porttitor ex in urna volutpat sollicitudin non ac ante.
-            Vestibulum tellus enim, mollis non magna sit amet, faucibus hendrerit metus.
-        </Label>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <local:ViewBox Grid.Column="0" Grid.Row="0">
+            <Label Text="{Binding Time}" x:Name="label"
+                   HorizontalOptions="Center" VerticalTextAlignment="Start"
+            />
+        </local:ViewBox>
 
 
-    </StackLayout>
 
+        <!--<Button Text="Run command" Command="{Binding Path=OpenSettingsCommand}" CommandParameter="From button"></Button>-->
+        <Label Text="Informacja z nagłośnienia" Grid.Column="0" Grid.Row="1"/>
+        <local:ViewBox Grid.Column="0" Grid.Row="2" >
+            <Label Text="{Binding Text}" HorizontalOptions="Start" VerticalTextAlignment="Start" />
+        </local:ViewBox>
+
+
+    </Grid>
+   
 </ContentPage>
