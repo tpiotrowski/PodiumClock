@@ -9,4 +9,9 @@
     {
 
     }
+
+    public class ClientConnectionStatus
+    {
+        public bool IsConnected { get; set; }
+    }
 }

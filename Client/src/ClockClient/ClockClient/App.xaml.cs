@@ -1,25 +1,25 @@
 ﻿using System;
 using Android.Content.Res;
 using ClockClient.VM;
+using ItSoft.ClientService.Di;
+using Splat;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
+
 namespace ClockClient
 {
     public partial class App : Application
     {
         public App()
         {
-           
-            
             InitializeComponent();
-
 
 
             MainPage = (Current.Resources["ViewModelLocator"] as ViewModelLocator).MainPage;
 
-
+            ClockClientServiceDependency.Configure(Locator.CurrentMutable, "192.168.1.6", 8811);
         }
 
         protected override void OnStart()
@@ -41,7 +41,6 @@ namespace ClockClient
     }
 
 
-
     public class ViewModelLocator
     {
         protected INavigation navigation;
@@ -49,15 +48,13 @@ namespace ClockClient
         public ViewModelLocator()
         {
             var mainPage = new MainPage();
-            
+
             MainPage = new NavigationPage(mainPage);
             navigation = MainPage.Navigation;
 
-            var context = new MainPageViewModel(navigation);
+            var context = new MainPageViewModel(navigation,MessagingCenter.Instance);
 
             mainPage.BindingContext = context;
-
-            
         }
 
         public NavigationPage MainPage { get; }

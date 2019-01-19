@@ -39,10 +39,16 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
+    <Reference Include="Splat">
+      <HintPath>C:\Users\tpiotrowski\.nuget\packages\splat\6.1.5\lib\netstandard2.0\Splat.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
+    <Reference Include="Xamarin.Forms.Core">
+      <HintPath>C:\Users\tpiotrowski\.nuget\packages\xamarin.forms\3.4.0.1008975\lib\MonoAndroid10\Xamarin.Forms.Core.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClockClientService.cs" />
@@ -60,6 +66,24 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ItSoft.ClientService.Model\ItSoft.ClientService.Model.csproj">
+      <Project>{E22C5D08-731B-45F7-8891-9EDEAEB98021}</Project>
+      <Name>ItSoft.ClientService.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClockClient\ClockClient\ClockClient.csproj">
+      <Project>{5918570F-23B0-4B3D-A263-9A9B576CB714}</Project>
+      <Name>ClockClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ItSoft.ClientService.Abstractions\ItSoft.ClientService.Abstractions.csproj">
+      <Project>{1B9F33D9-7ACB-4D6E-9011-265D798EE3B7}</Project>
+      <Name>ItSoft.ClientService.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ItSoft.ClientService\ItSoft.ClientService.csproj">
+      <Project>{9B5E5C30-432C-40D9-B896-89E79762BB89}</Project>
+      <Name>ItSoft.ClientService</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

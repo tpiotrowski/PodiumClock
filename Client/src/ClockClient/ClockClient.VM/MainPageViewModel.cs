@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Views;
+using ItSoft.ClientService;
 using ItSoft.Command;
 using Xamarin.Forms;
 using PropertyChangingEventArgs = System.ComponentModel.PropertyChangingEventArgs;
@@ -43,17 +44,20 @@ namespace ClockClient.VM
     public class MainPageViewModel  : BaseView
     {
         private readonly INavigation _navigation;
-        public ICommand OpenSettingsCommand { get; set; }
 
 
         //ToDo: Add custom interface
-        public MainPageViewModel(INavigation navigation)
+        public MainPageViewModel(INavigation navigation,IMessagingCenter messagingCenter)
         {
             _navigation = navigation ?? throw new ArgumentNullException(nameof(navigation));
-            Text = "Text from view model";
+            
+            
+            messagingCenter.Subscribe<ClockAndTextMessage>(this,nameof(ClockAndTextMessage), msg =>
+            {
+                Time = msg.Time;
+                Text = msg.Text;
+            });
 
-
-            OpenSettingsCommand = (ICommand) new NativeCommandFactory().CreateInstance(obj => { Text = (string) obj; }, o => true);
 
         }
         
@@ -65,6 +69,14 @@ namespace ClockClient.VM
         {
             set => Set(ref _text, value);
             get => _text;
+        }
+
+        private string _time;
+
+        public string Time
+        {
+            set => Set(ref _time, value);
+            get => _time;
         }
 
 

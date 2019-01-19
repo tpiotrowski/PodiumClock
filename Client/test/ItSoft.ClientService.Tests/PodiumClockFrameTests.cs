@@ -122,7 +122,7 @@ namespace Tests
             var testData = PrepareFrameClockTextPF("13", "23", "TestText", false, ' ');
 
            
-            var clockAndTimeFrame = ClockAndTimeMessageDecoder.Decode(testData.Source);
+            var clockAndTimeFrame = new ClockAndTimeMessageDecoder().Decode(testData.Source.Type, testData.Source.Body);
 
             Assert.Multiple(() =>
             {
@@ -142,7 +142,7 @@ namespace Tests
             var testData = PrepareFrameClockTextPF("13", "23", "Test:Text", false, ' ');
 
 
-            var clockAndTimeFrame = ClockAndTimeMessageDecoder.Decode(testData.Source);
+            var clockAndTimeFrame = new ClockAndTimeMessageDecoder().Decode(testData.Source.Type, testData.Source.Body);
 
             Assert.Multiple(() =>
             {
@@ -162,7 +162,7 @@ namespace Tests
             var testData = PrepareFrameClockTextPF("13", "23", "Test:Text", true, '-');
 
 
-            var clockAndTimeFrame = ClockAndTimeMessageDecoder.Decode(testData.Source);
+            var clockAndTimeFrame = new ClockAndTimeMessageDecoder().Decode(testData.Source.Type, testData.Source.Body);
 
             Assert.Multiple(() =>
             {
@@ -182,7 +182,7 @@ namespace Tests
             var testData = PrepareFrameClockTextPF("13", "23", "Test:& T ext", true, '-');
 
 
-            var clockAndTimeFrame = ClockAndTimeMessageDecoder.Decode(testData.Source);
+            var clockAndTimeFrame = new ClockAndTimeMessageDecoder().Decode(testData.Source.Type, testData.Source.Body);
 
             Assert.Multiple(() =>
             {

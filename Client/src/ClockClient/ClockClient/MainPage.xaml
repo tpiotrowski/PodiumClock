@@ -26,7 +26,7 @@
         </Grid.ColumnDefinitions>
 
         <local:ViewBox Grid.Column="0" Grid.Row="0">
-            <Label Text="00:00" x:Name="label"
+            <Label Text="{Binding Time}" x:Name="label"
                    HorizontalOptions="Center" VerticalTextAlignment="Start"
             />
         </local:ViewBox>

@@ -9,5 +9,6 @@ namespace ItSoft.ClientService
         event EventHandler ClientConnected;
         void StartClient();
         void StopClient();
+        void ChangeSettings(string ipAddress, int port);
     }
 }
