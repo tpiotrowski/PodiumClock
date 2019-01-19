@@ -95,6 +95,10 @@
     <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ClockClient.Android.Services\ClockClient.Android.Services.csproj">
+      <Project>{CC662BFC-27E5-47CE-BA7D-06166F739041}</Project>
+      <Name>ClockClient.Android.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ClockClient\ClockClient.csproj">
       <Project>{5918570f-23b0-4b3d-a263-9a9b576cb714}</Project>
       <Name>ClockClient</Name>

@@ -6,21 +6,22 @@ using ItSoft.ClientService;
 
 namespace ItSoft.ClientService
 {
-    public class ClockAndTimeMessageDecoder
+
+
+    public class ClockAndTimeMessageDecoder : IClockAndTimeMessageDecoder
     {
         public static readonly byte[] Type = {Convert.ToByte('T'), Convert.ToByte('1')};
         protected byte TextStartBytes { get; set; } = 0x2;
         protected byte TextEndBytes { get; set; } = 0x3;      
         protected char Separator { get; set; } = ':';
         
-        public static ClockAndTextMessage Decode(BaseMessage baseFrame)
+        
+
+        public ClockAndTextMessage Decode(byte[] type,byte[] body)
         {
-            if (baseFrame == null) throw new ArgumentNullException(nameof(baseFrame));
-            if (!baseFrame.Type.SequenceEqual(Type)) throw new Exception($"Wrong type of Frame {Type}");
+       
+            if (!type.SequenceEqual(Type)) throw new Exception($"Wrong type of Frame {Type}");
             var clockAndTimeFrame = new ClockAndTimeMessageDecoder();
-
-            var body = baseFrame.Body;
-
 
             var splitBySeparator = SplitBySeparator(body, clockAndTimeFrame);
 
@@ -83,4 +84,6 @@ namespace ItSoft.ClientService
             return bytes;
         }
     }
+
+   
 }

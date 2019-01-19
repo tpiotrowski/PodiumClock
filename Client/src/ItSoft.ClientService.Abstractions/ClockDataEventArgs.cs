@@ -6,4 +6,9 @@ namespace ItSoft.ClientService
     {
         public T Message { get; set; }
     }
+
+    public interface IClockAndTimeMessageDecoder
+    {
+        ClockAndTextMessage Decode(byte[] type, byte[] body);
+    }
 }

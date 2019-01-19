@@ -9,8 +9,6 @@ namespace ItSoft.ClientService
 {
     public class SocketClockMessageClient : IClockMessageClient<byte[]>
     {
-        private readonly string _ipAddress;
-        private readonly int _port;
         public event EventHandler<ClockDataEventArgs<byte[]>> DataReceived;
         public event EventHandler ClientDisconnected;
         public event EventHandler ClientConnected;
@@ -19,7 +17,8 @@ namespace ItSoft.ClientService
 
         private Socket _socket = null;
 
-
+        private string _ipAddress;
+        private int _port;
         public int ReadPeriod { get; set; } = 50;
         public int WatchDogPeriod { get; set; } = 10_000;
         public int BufferSize { get; set; } = 64_000;
@@ -30,9 +29,32 @@ namespace ItSoft.ClientService
             _port = port;
         }
 
+        public void ChangeSettings(string ipAddress, int port)
+        {
+            StopClient();
+
+            _ipAddress = ipAddress;
+            _port = port;
+
+            StartClient();
+        }
+
+
         public void StartClient()
         {
             Connect();
+        }
+
+        public void StopClient()
+        {
+            _timer?.Dispose();
+            _timer = null;
+
+            _watchDog?.Dispose();
+            _watchDog = null;
+
+            _socket.Dispose();
+            _socket = null;
         }
 
         bool SocketConnected(Socket s)

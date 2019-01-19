@@ -4,11 +4,25 @@ using System.Threading;
 
 namespace ItSoft.ClientService
 {
-    public class SocketDataDecoder
+ 
+
+    public class SocketDataDecoder : IService,ISocketDataDecoder
     {
         private readonly IClockMessageClient<byte[]> _messageClient;
 
         public event EventHandler<ClockDataEventArgs<byte[]>> FrameReceived;
+        public event EventHandler Connected;
+        public event EventHandler Disconnected;
+        public void Start()
+        {
+            _messageClient.StartClient();
+        }
+
+        public void Stop()
+        {
+            _messageClient.StopClient();
+        }
+
         private readonly List<byte> _bufferBytes = new List<byte>();
         private Timer _processDataTimer = null;
         public int ProcessingPeriod { get; set; } = 50;

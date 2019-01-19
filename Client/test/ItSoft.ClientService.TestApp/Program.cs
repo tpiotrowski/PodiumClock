@@ -27,7 +27,8 @@ namespace ItSoft.ClientService.TestApp
 
         private static void DataDecoder_FrameReceived(object sender, ClockDataEventArgs<byte[]> e)
         {
-            var clockAndTextMessage = ClockAndTimeMessageDecoder.Decode(BaseMessage.Decode(e.Message));
+            var baseMessage = BaseMessage.Decode(e.Message);
+            var clockAndTextMessage = new ClockAndTimeMessageDecoder().Decode(baseMessage.Type,baseMessage.Body);
 
 
 

@@ -8,5 +8,6 @@ namespace ItSoft.ClientService
         event EventHandler ClientDisconnected;
         event EventHandler ClientConnected;
         void StartClient();
+        void StopClient();
     }
 }

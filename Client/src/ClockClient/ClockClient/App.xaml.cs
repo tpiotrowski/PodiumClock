@@ -24,17 +24,19 @@ namespace ClockClient
 
         protected override void OnStart()
         {
-            // Handle when your app starts
+            MessagingCenter.Send(new StartClockClientTask(), nameof(StartClockClientTask));
         }
 
         protected override void OnSleep()
         {
             // Handle when your app sleeps
+            MessagingCenter.Send(new StopClockClientTask(), nameof(StopClockClientTask));
         }
 
         protected override void OnResume()
         {
             // Handle when your app resumes
+            MessagingCenter.Send(new StartClockClientTask(), nameof(StartClockClientTask));
         }
     }
 

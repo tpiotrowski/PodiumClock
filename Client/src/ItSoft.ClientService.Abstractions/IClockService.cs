@@ -1,8 +1,15 @@
-﻿namespace ItSoft.ClientService
+﻿using System;
+
+namespace ItSoft.ClientService
 {
-    public interface IClockService
+    public partial interface IClockService : IService
     {
-        void Start();
-        void Stop();
+       
+        event EventHandler<ClockAndTextMessageEventArgs> ClockAndTextMessageReceived;
+    }
+
+    public class ClockAndTextMessageEventArgs : EventArgs
+    {
+        public ClockAndTextMessage ClockAndTextMessage { get; set; }
     }
 }
