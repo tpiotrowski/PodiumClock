@@ -7,7 +7,6 @@
 
     public class StopClockClientTask
     {
-
     }
 
     public class ClientConnectionStatus

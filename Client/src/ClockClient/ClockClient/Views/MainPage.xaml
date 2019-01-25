@@ -5,14 +5,35 @@
              xmlns:local="clr-namespace:ClockClient"
              x:Class="ClockClient.MainPage">
     <NavigationPage.TitleView>
-        <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Fill" Spacing="10">
-            <Label Text="3.2.0" FontSize="16" TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="End">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Text="23 styczeń 2019" Grid.Column="0">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer
                         Command="{Binding OpenSettingsCommand}" CommandParameter="Text from navigation panel"/>
                 </Label.GestureRecognizers>
             </Label>
-        </StackLayout>
+            <Label Text="23:00:00" Grid.Column="1">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding OpenSettingsCommand}" CommandParameter="Text from navigation panel"/>
+                </Label.GestureRecognizers>
+            </Label>
+            <Image Source="gear.png" Grid.Column="2" 
+                           >
+      
+            </Image>
+
+        </Grid>
+
     </NavigationPage.TitleView>
 
     <Grid>
