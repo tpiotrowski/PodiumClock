@@ -1,5 +1,6 @@
 ﻿using System;
 using Android.Content.Res;
+using ClockClient.Views;
 using ClockClient.VM;
 using ItSoft.ClientService.Di;
 using Splat;
@@ -18,8 +19,10 @@ namespace ClockClient
 
 
             MainPage = (Current.Resources["ViewModelLocator"] as ViewModelLocator).MainPage;
-
+            
             ClockClientServiceDependency.Configure(Locator.CurrentMutable, "192.168.1.6", 8811);
+
+            
         }
 
         protected override void OnStart()
@@ -47,9 +50,9 @@ namespace ClockClient
 
         public ViewModelLocator()
         {
-            var mainPage = new MainPage();
+            var mainPage = new MainMasterDetail();
 
-            MainPage = new NavigationPage(mainPage);
+            MainPage = mainPage;
             navigation = MainPage.Navigation;
 
             var context = new MainPageViewModel(navigation,MessagingCenter.Instance);
@@ -57,6 +60,6 @@ namespace ClockClient
             mainPage.BindingContext = context;
         }
 
-        public NavigationPage MainPage { get; }
+        public MasterDetailPage MainPage { get; }
     }
 }

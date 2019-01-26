@@ -5,30 +5,31 @@
              xmlns:local="clr-namespace:ClockClient"
              x:Class="ClockClient.MainPage">
     <NavigationPage.TitleView>
-        <Grid>
+        <Grid HeightRequest="15">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Label Text="23 styczeń 2019" Grid.Column="0">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer
-                        Command="{Binding OpenSettingsCommand}" CommandParameter="Text from navigation panel"/>
-                </Label.GestureRecognizers>
-            </Label>
-            <Label Text="23:00:00" Grid.Column="1">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer
-                        Command="{Binding OpenSettingsCommand}" CommandParameter="Text from navigation panel"/>
-                </Label.GestureRecognizers>
-            </Label>
-            <Image Source="gear.png" Grid.Column="2" 
-                           >
+            <local:ViewBox Grid.Column="0">
+                <Label Text="23 styczeń 2019" >
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding OpenSettingsCommand}" CommandParameter="Text from navigation panel"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </local:ViewBox>
+            <local:ViewBox Grid.Column="1">
+                <Label Text="23:00:00" >
+                </Label>
+
+
+            </local:ViewBox>
+            <Image Source="gear.png" Grid.Column="2"  >
       
             </Image>
 
@@ -55,9 +56,9 @@
 
 
         <!--<Button Text="Run command" Command="{Binding Path=OpenSettingsCommand}" CommandParameter="From button"></Button>-->
-        <Label Text="Informacja z nagłośnienia" Grid.Column="0" Grid.Row="1"/>
-        <local:ViewBox Grid.Column="0" Grid.Row="2" >
-            <Label Text="{Binding Text}" HorizontalOptions="Start" VerticalTextAlignment="Start" />
+        <Label Text="Informacja z nagłośnienia:" Grid.Column="0" Grid.Row="1"/>
+        <local:ViewBox Grid.Column="0" Grid.Row="2" HorizontalOptions="Start" VerticalOptions="Start">
+            <Label Text="{Binding Text}"  />
         </local:ViewBox>
 
 

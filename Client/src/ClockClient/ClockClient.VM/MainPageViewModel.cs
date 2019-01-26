@@ -56,12 +56,19 @@ namespace ClockClient.VM
             {
                 Time = msg.Time;
                 Text = msg.Text;
+                Indicator = msg.IndicatorEnabled;
             });
 
 
         }
-        
 
+        private bool _indicator;
+
+        public bool Indicator
+        {
+            set => Set(ref _indicator, value);
+            get => _indicator;
+        }
 
         private string _text;
 
