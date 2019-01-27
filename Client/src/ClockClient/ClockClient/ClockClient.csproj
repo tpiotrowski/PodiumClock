@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\ClockClient.Common\ClockClient.Common.csproj" />
     <ProjectReference Include="..\..\ItSoft.ClientService.Di\ItSoft.ClientService.Di.csproj" />
     <ProjectReference Include="..\ClockClient.VM\ClockClient.VM.csproj" />
   </ItemGroup>

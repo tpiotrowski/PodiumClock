@@ -15,6 +15,8 @@ namespace ItSoft.ClientService
         private Timer _timer = null;
         private Timer _watchDog = null;
 
+        protected bool _isStarted = false;
+
         private Socket _socket = null;
 
         private string _ipAddress;
@@ -42,11 +44,17 @@ namespace ItSoft.ClientService
 
         public void StartClient()
         {
+            
+
             Connect();
+
+            _isStarted = true;
         }
 
         public void StopClient()
         {
+            _isStarted = false;
+
             _timer?.Dispose();
             _timer = null;
 
@@ -59,21 +67,33 @@ namespace ItSoft.ClientService
 
         bool SocketConnected(Socket s)
         {
-            if (s == null) return false;
 
-            if (!s.Connected)
+            try
+            {
+
+                if (s == null) return false;
+
+                if (!s.Connected)
+                {
+                    return false;
+                }
+                else
+                {
+                    bool part1 = s.Poll(1000, SelectMode.SelectRead);
+                    bool part2 = (s.Available == 0);
+                    if (part1 && part2)
+                        return false;
+                    else
+                        return true;
+                }
+
+            }
+            catch(ObjectDisposedException)
             {
                 return false;
             }
-            else
-            {
-                bool part1 = s.Poll(1000, SelectMode.SelectRead);
-                bool part2 = (s.Available == 0);
-                if (part1 && part2)
-                    return false;
-                else
-                    return true;
-            }
+
+            
         }
 
 
@@ -86,9 +106,10 @@ namespace ItSoft.ClientService
                 return;
             }
 
-            var ipEndPoint = new IPEndPoint(IPAddress.Parse(_ipAddress), _port);
-            _socket = new Socket(ipEndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-            _socket.BeginConnect(ipEndPoint, res =>
+            var ipEndPoint = CreateSocket();
+
+            
+             var result = _socket.BeginConnect(ipEndPoint, res =>
             {
                 var socket = (Socket) res.AsyncState;
 
@@ -111,10 +132,21 @@ namespace ItSoft.ClientService
                     RunConnectionWatchDog();
                 }
             }, _socket);
+
+            
+        }
+
+        private IPEndPoint CreateSocket()
+        {
+            var ipEndPoint = new IPEndPoint(IPAddress.Parse(_ipAddress), _port);
+            _socket = new Socket(ipEndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            return ipEndPoint;
         }
 
         private void RunConnectionWatchDog()
         {
+            if (!_isStarted) return;
+
             ClientDisconnected?.Invoke(this, EventArgs.Empty);
 
             _timer?.Dispose();
@@ -130,6 +162,8 @@ namespace ItSoft.ClientService
 
         private void ReadData(object state)
         {
+            if (!_isStarted) return;
+
             if (state is Socket socket)
             {
                 if (!SocketConnected(socket))

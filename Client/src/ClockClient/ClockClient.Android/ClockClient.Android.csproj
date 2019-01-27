@@ -98,6 +98,10 @@
       <Project>{CC662BFC-27E5-47CE-BA7D-06166F739041}</Project>
       <Name>ClockClient.Android.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\ClockClient.Common\ClockClient.Common.csproj">
+      <Project>{7F6701A1-F3EB-4B2E-91AB-2741B3954E32}</Project>
+      <Name>ClockClient.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ClockClient\ClockClient.csproj">
       <Project>{5918570f-23b0-4b3d-a263-9a9b576cb714}</Project>
       <Name>ClockClient</Name>

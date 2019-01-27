@@ -69,6 +69,10 @@
       <Project>{E22C5D08-731B-45F7-8891-9EDEAEB98021}</Project>
       <Name>ItSoft.ClientService.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ClockClient.Common\ClockClient.Common.csproj">
+      <Project>{7f6701a1-f3eb-4b2e-91ab-2741b3954e32}</Project>
+      <Name>ClockClient.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ClockClient\ClockClient\ClockClient.csproj">
       <Project>{5918570F-23B0-4B3D-A263-9A9B576CB714}</Project>
       <Name>ClockClient</Name>

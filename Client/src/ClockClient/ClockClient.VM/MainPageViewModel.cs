@@ -59,8 +59,16 @@ namespace ClockClient.VM
                 Indicator = msg.IndicatorEnabled;
             });
 
+            messagingCenter.Subscribe<ClientConnectionStatus>(this, nameof(ClientConnectionStatus), msg =>
+            {
+                if (!msg.IsConnected)
+                {
+                    Time = "Brak połączenia.";
+                    Text = String.Empty;
+                    Indicator = false;
+                }
+            });
 
-            
 
         }
 

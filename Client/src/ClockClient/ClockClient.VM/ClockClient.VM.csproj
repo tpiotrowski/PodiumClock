@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\ItSoft.ClientService.Model\ItSoft.ClientService.Model.csproj" />
+    <ProjectReference Include="..\..\ClockClient.Common\ClockClient.Common.csproj" />
     <ProjectReference Include="..\..\ItSoft.Command\ItSoft.Command.csproj" />
   </ItemGroup>
 
