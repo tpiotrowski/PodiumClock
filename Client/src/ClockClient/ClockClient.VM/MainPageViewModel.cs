@@ -60,6 +60,8 @@ namespace ClockClient.VM
             });
 
 
+            
+
         }
 
         private bool _indicator;

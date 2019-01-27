@@ -5,8 +5,13 @@
              BindingContext="{Binding SettingsViewModel, Source={StaticResource ViewModelLocator}}">
     <ContentPage.Content>
         <StackLayout>
-        <Entry Text="{Binding IpAddress}" Keyboard="Numeric"></Entry>
-        <Entry Text="{Binding PortNumber}" Keyboard="Numeric"></Entry>
+            <Label Text="Adres IP"></Label>
+            <Entry Text="{Binding IpAddress}" Keyboard="Numeric"></Entry>
+            <Label Text="Port"></Label>
+            <Entry Text="{Binding PortNumber}" Keyboard="Numeric"></Entry>
+
+         <Button Text="Save settings" Command="{Binding SaveCommand}" IsEnabled="{Binding IsDirty}"></Button>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
