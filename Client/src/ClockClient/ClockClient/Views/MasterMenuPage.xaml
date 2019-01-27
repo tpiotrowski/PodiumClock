@@ -32,7 +32,8 @@
                   ItemsSource="{Binding MenuItems}"
                   ItemTemplate="{StaticResource DataTemplate}"
                   VerticalOptions="Start"
-                  HorizontalOptions="StartAndExpand">
+                  HorizontalOptions="StartAndExpand"
+                  SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}">
             <ListView.Header>
                 <Grid BackgroundColor="#03A9F4">
                     <Grid.ColumnDefinitions>

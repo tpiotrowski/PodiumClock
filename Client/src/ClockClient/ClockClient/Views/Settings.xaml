@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ClockClient.SettingsPage">
+             x:Class="ClockClient.SettingsPage"
+             BindingContext="{Binding SettingsViewModel, Source={StaticResource ViewModelLocator}}">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome on settings page"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <Entry Text="{Binding IpAddress}" Keyboard="Numeric"></Entry>
+        <Entry Text="{Binding PortNumber}" Keyboard="Numeric"></Entry>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

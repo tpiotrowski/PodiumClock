@@ -6,6 +6,7 @@ using ItSoft.ClientService.Di;
 using Splat;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 
@@ -20,9 +21,8 @@ namespace ClockClient
 
             MainPage = (Current.Resources["ViewModelLocator"] as ViewModelLocator).MainPage;
             
-            ClockClientServiceDependency.Configure(Locator.CurrentMutable, "192.168.1.6", 8811);
-            
-            
+            ClockClientServiceDependency.Configure(Locator.CurrentMutable, "10.0.2.2", 8811);
+            Locator.CurrentMutable.Register<SettingsViewModel>( () => new SettingsViewModel());
         }
 
         protected override void OnStart()
@@ -61,5 +61,11 @@ namespace ClockClient
         }
 
         public MasterDetailPage MainPage { get; }
+
+
+        public SettingsViewModel SettingsViewModel => Locator.CurrentMutable.GetService<SettingsViewModel>()
+
+
+
     }
 }

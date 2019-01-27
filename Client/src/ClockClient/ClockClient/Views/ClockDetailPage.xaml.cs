@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,15 +20,15 @@ namespace ClockClient.Views
 
         protected override void OnBindingContextChanged()
         {
+            base.OnBindingContextChanged();
             var mainPageViewModel = BindingContext as MainPageViewModel;
 
 
             if (mainPageViewModel != null)
             {
+                MainPageViewModel_PropertyChanged(mainPageViewModel,new PropertyChangedEventArgs(nameof(MainPageViewModel.Indicator)));
                 mainPageViewModel.PropertyChanged += MainPageViewModel_PropertyChanged;
             }
-
-            base.OnBindingContextChanged();
         }
 
         private void MainPageViewModel_PropertyChanged(object sender,

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-
+using ClockClient.VM;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -27,29 +27,37 @@ namespace ClockClient.Views
             SettingsLV = SettingsListView;
         }
 
-        class MainMasterDetailMasterViewModel : INotifyPropertyChanged
+        class MainMasterDetailMasterViewModel : BaseView
         {
-            public ObservableCollection<MainMasterDetailMenuItem> MenuItems { get; set; }
-            
+            private ObservableCollection<MainMasterDetailMenuItem> _menuItems;
+            private MainMasterDetailMenuItem _selectedMenuItem;
+
+            public ObservableCollection<MainMasterDetailMenuItem> MenuItems
+            {
+                get => _menuItems;
+                set => Set(ref _menuItems,value);
+            }
+
+
+            public MainMasterDetailMenuItem SelectedMenuItem
+            {
+                get => _selectedMenuItem;
+                set => Set(ref _selectedMenuItem,value);
+            }
+
             public MainMasterDetailMasterViewModel()
             {
+                //Todo: move this to ViewModel   
+                var mainMasterDetailMenuItem = new MainMasterDetailMenuItem { Id = 0, Title = "Zegar",Image = "clock.png", TargetType = typeof(ClockDetailPage)};
                 MenuItems = new ObservableCollection<MainMasterDetailMenuItem>(new[]
                 {
-                    new MainMasterDetailMenuItem { Id = 0, Title = "Zegar",Image = "clock.png", TargetType = typeof(ClockDetailPage)},
+                    mainMasterDetailMenuItem,
               
                 });
-            }
-            
-            #region INotifyPropertyChanged Implementation
-            public event PropertyChangedEventHandler PropertyChanged;
-            void OnPropertyChanged([CallerMemberName] string propertyName = "")
-            {
-                if (PropertyChanged == null)
-                    return;
 
-                PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
+                SelectedMenuItem = mainMasterDetailMenuItem;
             }
-            #endregion
+
         }
     }
 }
