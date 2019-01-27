@@ -4,12 +4,12 @@
              x:Class="ClockClient.Views.MainMasterDetail"
              xmlns:pages="clr-namespace:ClockClient.Views" MasterBehavior="Popover">
     <MasterDetailPage.Master>
-    <pages:MainMasterDetailMaster x:Name="MasterPage" />
+    <pages:MasterMenuPage x:Name="MasterPage" />
   </MasterDetailPage.Master>
   <MasterDetailPage.Detail>
     <NavigationPage>
       <x:Arguments>
-        <pages:MainMasterDetailDetail />
+        <pages:ClockDetailPage />
       </x:Arguments>
     </NavigationPage>
   </MasterDetailPage.Detail>

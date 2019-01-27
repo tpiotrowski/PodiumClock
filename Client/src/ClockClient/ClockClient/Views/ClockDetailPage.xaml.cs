@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace ClockClient.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainMasterDetailDetail : ContentPage
+    public partial class ClockDetailPage : ContentPage
     {
-        public MainMasterDetailDetail()
+        public ClockDetailPage()
         {
             InitializeComponent();
         }

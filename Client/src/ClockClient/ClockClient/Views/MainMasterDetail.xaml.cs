@@ -16,21 +16,41 @@ namespace ClockClient.Views
         {
             InitializeComponent();
             MasterPage.ListView.ItemSelected += ListView_ItemSelected;
+            MasterPage.SettingsLV.ItemSelected += ListViewSettingsOnItemSelected;
+            
+        }
+
+        private void ListViewSettingsOnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            MasterPage.SettingsLV.SelectedItem = null;
+
+            if (NavigateTo(e)) return;
+
+            MasterPage.ListView.SelectedItem = null;
         }
 
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
+
+            MasterPage.SettingsLV.SelectedItem = null;
+
+            if (NavigateTo(e)) return;
+
+            MasterPage.ListView.SelectedItem = null;
+        }
+
+        private bool NavigateTo(SelectedItemChangedEventArgs e)
+        {
             var item = e.SelectedItem as MainMasterDetailMenuItem;
             if (item == null)
-                return;
+                return true;
 
-            var page = (Page)Activator.CreateInstance(item.TargetType);
+            var page = (Page) Activator.CreateInstance(item.TargetType);
             page.Title = item.Title;
 
             Detail = new NavigationPage(page);
             IsPresented = false;
-
-            MasterPage.ListView.SelectedItem = null;
+            return false;
         }
     }
 }

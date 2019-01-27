@@ -21,7 +21,7 @@ namespace ClockClient
             MainPage = (Current.Resources["ViewModelLocator"] as ViewModelLocator).MainPage;
             
             ClockClientServiceDependency.Configure(Locator.CurrentMutable, "192.168.1.6", 8811);
-
+            
             
         }
 

@@ -13,16 +13,18 @@ using Xamarin.Forms.Xaml;
 namespace ClockClient.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainMasterDetailMaster : ContentPage
+    public partial class MasterMenuPage : ContentPage
     {
         public ListView ListView;
+        public ListView SettingsLV;
 
-        public MainMasterDetailMaster()
+        public MasterMenuPage()
         {
             InitializeComponent();
 
             BindingContext = new MainMasterDetailMasterViewModel();
             ListView = MenuItemsListView;
+            SettingsLV = SettingsListView;
         }
 
         class MainMasterDetailMasterViewModel : INotifyPropertyChanged
@@ -33,7 +35,7 @@ namespace ClockClient.Views
             {
                 MenuItems = new ObservableCollection<MainMasterDetailMenuItem>(new[]
                 {
-                    new MainMasterDetailMenuItem { Id = 0, Title = "Zegar" },
+                    new MainMasterDetailMenuItem { Id = 0, Title = "Zegar",Image = "clock.png", TargetType = typeof(ClockDetailPage)},
               
                 });
             }
