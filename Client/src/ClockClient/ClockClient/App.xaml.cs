@@ -1,10 +1,13 @@
 ﻿using System;
 using Android.Content.Res;
+using ClockClient.Views;
 using ClockClient.VM;
+using ItSoft.ClientService;
 using ItSoft.ClientService.Di;
 using Splat;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 
@@ -18,8 +21,20 @@ namespace ClockClient
 
 
             MainPage = (Current.Resources["ViewModelLocator"] as ViewModelLocator).MainPage;
+            
+            ClockClientServiceDependency.Configure(Locator.CurrentMutable, "10.0.2.2", 8811);
+            Locator.CurrentMutable.Register<SettingsViewModel>( () => new SettingsViewModel());
 
-            ClockClientServiceDependency.Configure(Locator.CurrentMutable, "192.168.1.6", 8811);
+            MessagingCenter.Subscribe<SettingsViewModel>(this, SettingsViewModel.SettingsChangedMessageIs, src =>
+            {
+                Preferences.Set("IpAddress", src.IpAddress);
+                Preferences.Set("PortNumber",src.PortNumber);
+
+                var clockMessageClient = Locator.CurrentMutable.GetService<IClockMessageClient<byte[]>>();
+
+                clockMessageClient.ChangeSettings(src.IpAddress,Convert.ToInt32(src.PortNumber));
+
+            });
         }
 
         protected override void OnStart()
@@ -47,9 +62,9 @@ namespace ClockClient
 
         public ViewModelLocator()
         {
-            var mainPage = new MainPage();
+            var mainPage = new MainMasterDetail();
 
-            MainPage = new NavigationPage(mainPage);
+            MainPage = mainPage;
             navigation = MainPage.Navigation;
 
             var context = new MainPageViewModel(navigation,MessagingCenter.Instance);
@@ -57,6 +72,22 @@ namespace ClockClient
             mainPage.BindingContext = context;
         }
 
-        public NavigationPage MainPage { get; }
+        public MasterDetailPage MainPage { get; }
+
+
+        public SettingsViewModel SettingsViewModel
+        {
+            get
+            {
+                var settingsViewModel = Locator.CurrentMutable.GetService<SettingsViewModel>();
+                
+                settingsViewModel.IpAddress = Preferences.Get("IpAddress", "10.0.2.2");
+                settingsViewModel.PortNumber = Preferences.Get("PortNumber", "8811");
+
+                settingsViewModel.IsDirty = false;
+
+                return settingsViewModel;
+            } 
+        }
     }
 }

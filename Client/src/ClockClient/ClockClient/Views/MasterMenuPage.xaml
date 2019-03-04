@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:ClockClient.Views;assembly=ClockClient"
+             xmlns:system="clr-namespace:System;assembly=netstandard"
+             xmlns:clockClient="clr-namespace:ClockClient;assembly=ClockClient"
+             x:Class="ClockClient.Views.MasterMenuPage"
+             Title="Master">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="DataTemplate">
+                <ViewCell>
+                    <StackLayout Padding="15,10" Orientation="Horizontal">
+                        <Image Source="{Binding Image}" WidthRequest="24" HeightRequest="24" />
+                        <Label VerticalOptions="FillAndExpand"
+                               VerticalTextAlignment="Center"
+                               Text="{Binding Title}"
+                               FontSize="24" />
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <StackLayout>
+
+        <ListView x:Name="MenuItemsListView"
+                  SeparatorVisibility="Default"
+                  HasUnevenRows="true"
+                  ItemsSource="{Binding MenuItems}"
+                  ItemTemplate="{StaticResource DataTemplate}"
+                  VerticalOptions="Start"
+                  HorizontalOptions="StartAndExpand"
+                  SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}">
+            <ListView.Header>
+                <Grid BackgroundColor="#03A9F4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+                    <Label
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Text="AppName"
+                        Style="{DynamicResource SubtitleStyle}" />
+                </Grid>
+            </ListView.Header>
+        </ListView>
+        <ListView x:Name="SettingsListView"
+                  SeparatorVisibility="Default"
+                  HasUnevenRows="true"
+                  ItemTemplate="{StaticResource DataTemplate}"
+                  VerticalOptions="End"
+                  HorizontalOptions="EndAndExpand">
+            <ListView.ItemsSource>
+                <x:Array Type="{x:Type views:MainMasterDetailMenuItem}">
+                    <views:MainMasterDetailMenuItem Title="Settings" Id="0" Image="gear.png" TargetType="{x:Type clockClient:SettingsPage}"/>
+                </x:Array>
+            </ListView.ItemsSource>
+
+        </ListView>
+    </StackLayout>
+</ContentPage>

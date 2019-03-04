@@ -68,7 +68,7 @@ namespace Tests
 
             bytes.Add(Convert.ToByte(':'));
 
-            bytes.Add(indicator ? (byte) 1 : (byte) 0);
+            bytes.Add(indicator ? (byte)'1' : (byte) '0');
 
             bytes.Add(Convert.ToByte(':'));
 

@@ -16,7 +16,7 @@
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -59,9 +59,6 @@
     <None Include="Resources\AboutResources.txt" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="27.0.2.1" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\values\strings.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +68,10 @@
     <ProjectReference Include="..\..\ItSoft.ClientService.Model\ItSoft.ClientService.Model.csproj">
       <Project>{E22C5D08-731B-45F7-8891-9EDEAEB98021}</Project>
       <Name>ItSoft.ClientService.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClockClient.Common\ClockClient.Common.csproj">
+      <Project>{7f6701a1-f3eb-4b2e-91ab-2741b3954e32}</Project>
+      <Name>ClockClient.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\ClockClient\ClockClient\ClockClient.csproj">
       <Project>{5918570F-23B0-4B3D-A263-9A9B576CB714}</Project>
