@@ -63,6 +63,7 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ClockClientService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -94,13 +95,21 @@
     <Folder Include="Resources\drawable-xxxhdpi\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ClockClient.Android.Services\ClockClient.Android.Services.csproj">
-      <Project>{CC662BFC-27E5-47CE-BA7D-06166F739041}</Project>
-      <Name>ClockClient.Android.Services</Name>
+    <ProjectReference Include="..\..\..\ItSoft.ClientService.Model\ItSoft.ClientService.Model.csproj">
+      <Project>{E22C5D08-731B-45F7-8891-9EDEAEB98021}</Project>
+      <Name>ItSoft.ClientService.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ClockClient.Common\ClockClient.Common.csproj">
       <Project>{7F6701A1-F3EB-4B2E-91AB-2741B3954E32}</Project>
       <Name>ClockClient.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ItSoft.ClientService.Abstractions\ItSoft.ClientService.Abstractions.csproj">
+      <Project>{1B9F33D9-7ACB-4D6E-9011-265D798EE3B7}</Project>
+      <Name>ItSoft.ClientService.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ItSoft.ClientService\ItSoft.ClientService.csproj">
+      <Project>{9B5E5C30-432C-40D9-B896-89E79762BB89}</Project>
+      <Name>ItSoft.ClientService</Name>
     </ProjectReference>
     <ProjectReference Include="..\ClockClient\ClockClient.csproj">
       <Project>{5918570f-23b0-4b3d-a263-9a9b576cb714}</Project>

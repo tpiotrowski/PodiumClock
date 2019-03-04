@@ -39,16 +39,10 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
-    <Reference Include="Splat">
-      <HintPath>C:\Users\tpiotrowski\.nuget\packages\splat\6.1.5\lib\netstandard2.0\Splat.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
-    <Reference Include="Xamarin.Forms.Core">
-      <HintPath>C:\Users\tpiotrowski\.nuget\packages\xamarin.forms\3.4.0.1008975\lib\MonoAndroid10\Xamarin.Forms.Core.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClockClientService.cs" />

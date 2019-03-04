@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28306.52
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28621.142
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClockClient", "src\ClockClient\ClockClient\ClockClient.csproj", "{5918570F-23B0-4B3D-A263-9A9B576CB714}"
 EndProject
@@ -31,11 +31,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{3CA4CD5B-B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Android", "Android", "{994B7BC8-729C-4C4E-A493-69483413B53C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClockClient.Android.Services", "src\ClockClient.Android.Services\ClockClient.Android.Services.csproj", "{CC662BFC-27E5-47CE-BA7D-06166F739041}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ItSoft.ClientService.Di", "src\ItSoft.ClientService.Di\ItSoft.ClientService.Di.csproj", "{C3BAA3ED-A57F-495F-BCD9-B7DF7C7D05D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClockClient.Common", "src\ClockClient.Common\ClockClient.Common.csproj", "{7F6701A1-F3EB-4B2E-91AB-2741B3954E32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClockClient.Common", "src\ClockClient.Common\ClockClient.Common.csproj", "{7F6701A1-F3EB-4B2E-91AB-2741B3954E32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,10 +79,6 @@ Global
 		{E22C5D08-731B-45F7-8891-9EDEAEB98021}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E22C5D08-731B-45F7-8891-9EDEAEB98021}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E22C5D08-731B-45F7-8891-9EDEAEB98021}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CC662BFC-27E5-47CE-BA7D-06166F739041}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CC662BFC-27E5-47CE-BA7D-06166F739041}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CC662BFC-27E5-47CE-BA7D-06166F739041}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CC662BFC-27E5-47CE-BA7D-06166F739041}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C3BAA3ED-A57F-495F-BCD9-B7DF7C7D05D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C3BAA3ED-A57F-495F-BCD9-B7DF7C7D05D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3BAA3ED-A57F-495F-BCD9-B7DF7C7D05D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -109,7 +103,6 @@ Global
 		{E22C5D08-731B-45F7-8891-9EDEAEB98021} = {B4DF091E-0843-461C-9B12-C69DD664EFA2}
 		{3CA4CD5B-B98D-4AA0-A131-FB0555C78AA6} = {F02534B2-61A6-46CF-96B8-3DB66EEE8AE4}
 		{994B7BC8-729C-4C4E-A493-69483413B53C} = {F02534B2-61A6-46CF-96B8-3DB66EEE8AE4}
-		{CC662BFC-27E5-47CE-BA7D-06166F739041} = {994B7BC8-729C-4C4E-A493-69483413B53C}
 		{C3BAA3ED-A57F-495F-BCD9-B7DF7C7D05D9} = {B4DF091E-0843-461C-9B12-C69DD664EFA2}
 		{7F6701A1-F3EB-4B2E-91AB-2741B3954E32} = {8C336EAB-49A3-4099-A86E-92862CC61AD1}
 	EndGlobalSection
