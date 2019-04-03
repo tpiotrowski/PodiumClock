@@ -1,5 +1,4 @@
 ﻿using System;
-using Android.Content.Res;
 using ClockClient.Views;
 using ClockClient.VM;
 using ItSoft.ClientService;
